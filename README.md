@@ -36,6 +36,7 @@ To start working on your own,
 1. Add your data to the `/data` directory (note: there's many ways to access your data through [Llamahub](https://llamahub.ai/) and the [SampleDirectoryReader](https://docs.llamaindex.ai/en/stable/examples/data_connectors/simple_directory_reader.html) documentation)
 2. Update the `load_data()` function with the new path.
 3. Choose the type of RAG to run. By default, it's using automerging - but you can replace it with the sentence retrieval function on line 80 in `chatbot.py`
+4. Update system_prompt.py with your custom prompt!
 
 ## Debugging
 
