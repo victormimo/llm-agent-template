@@ -1,4 +1,4 @@
-# Scaffold LLM Agent
+# Scaffold LLM Agent 💻
 
 This project provides a scaffold LLM agent to help you get started with Llamaindex, Trulens, and Streamlit. It uses advanced RAG techniques (sentence-window and automerging retrieval) to create a custom agent and Trulens to evaluate the RAG. It can run either locally or in a containerized version.
 
