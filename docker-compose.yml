@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  alpha-ai-0:
+    build: .
+    volumes:
+      - .:/app # Mounts the current directory into the /app directory in the container
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    restart:
+      always # Ensures the service restarts if it goes down
+      # Make sure log colors show up correctly
+    tty: true

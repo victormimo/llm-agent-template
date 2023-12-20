@@ -1,0 +1,6 @@
+.env
+.git
+.github
+.streamlit
+.history
+.env.example

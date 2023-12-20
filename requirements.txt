@@ -1,0 +1,11 @@
+llama-hub
+llama-index
+streamlit
+openai
+pypdf
+transformers
+torch
+trulens_eval==0.19.2
+IPython
+python-dotenv
+sentence-transformers
