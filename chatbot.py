@@ -6,7 +6,7 @@ import streamlit as st
 from llama_index.llms import OpenAI as LlamaOpenAI
 import openai 
 from system_prompt import system_prompt
-from llama_hub.tools.requests import RequestsToolSpec
+from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.agent import OpenAIAgent
 from llama_index import SimpleDirectoryReader
 from llama_index import Document
@@ -84,21 +84,19 @@ query_engine, app_id = load_automerging_retrieval() #load_sentence_retrieval()
 tru_recorder = load_trulens(query_engine, app_id)
 tru = get_tru()
 
-domain_headers = {
-    "api.openai.com": {
-        "Authorization": f"Bearer {openai_key}",
-        "Content-Type": "application/json",
-    },
-    "127.0.0.1": {
-        "Content-Type": "application/json",
-    },
-}
-
-tool_spec = RequestsToolSpec(domain_headers=domain_headers)
+tools = [
+    QueryEngineTool(
+        query_engine=query_engine,
+        metadata=ToolMetadata(
+            name="query_engine_tool",
+            description="Query the supplied documents",
+        ),
+    ),
+]
 
 agent = OpenAIAgent.from_tools(
     llm=llm,
-    tools=tool_spec.to_tool_list(),
+    tools=tools,
     system_prompt=system_prompt,
 )
 
@@ -135,7 +133,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
     with st.spinner("The agent is thinking..."):
          with tru_recorder as recording:
             # Use query_engine to process the prompt
-            vector_response = query_engine.query(prompt)
+            vector_response = st.session_state.chat_engine(prompt)
        
 
     with st.chat_message("assistant"):
